@@ -24,6 +24,10 @@ export async function spotifyFetch(
 }
 
 export async function getUserPlaylists(accessToken: string): Promise<SpotifyPlaylist[]> {
+  // First, get the current user's profile to identify their own playlists
+  const currentUser = await spotifyFetch('/me', accessToken)
+  const currentUserId = currentUser.id
+
   const allPlaylists: SpotifyPlaylist[] = []
   let nextUrl = '/me/playlists?limit=50'
   
@@ -34,7 +38,8 @@ export async function getUserPlaylists(accessToken: string): Promise<SpotifyPlay
       name: playlist.name,
       track_count: playlist.tracks.total,
       owner: playlist.owner.display_name,
-      images: playlist.images
+      images: playlist.images,
+      isOwned: playlist.owner.id === currentUserId
     })))
     
     nextUrl = data.next ? data.next.replace(SPOTIFY_API_BASE, '') : null

@@ -14,7 +14,7 @@ export function fisherYatesShuffle<T>(items: T[]): number[] {
 export async function reorderPlaylist(
   accessToken: string,
   playlistId: string,
-  shuffleFunction: (items: any[]) => number[]
+  shuffleFunction: (items: unknown[]) => number[]
 ) {
   // Get current tracks
   const tracks = await getPlaylistTracks(accessToken, playlistId)

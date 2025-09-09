@@ -4,6 +4,7 @@ export interface SpotifyPlaylist {
   track_count: number
   owner: string
   images: Array<{ url: string }>
+  isOwned?: boolean
 }
 
 export interface SpotifyTrack {
@@ -22,6 +23,7 @@ export interface SpotifyApiPlaylist {
     total: number
   }
   owner: {
+    id: string
     display_name: string
   }
   images: Array<{ url: string }>
